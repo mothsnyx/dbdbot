@@ -338,13 +338,9 @@ async def remove_item(ctx, name: str, *, item: str):
     else:
         await ctx.send(f"❌ No matching profile found to remove item.")
 
-async def show_profiles():
-    async with aiosqlite.connect("profiles.db") as db:
-        async with db.execute("SELECT * FROM profiles") as cursor:
-            rows = await cursor.fetchall()
-            logger.info(rows)
-
-asyncio.run(show_profiles())
+async def main():
+    await initialize_database()  # Initialize DB first
+    await bot.start(os.getenv("DISCORD_BOT_TOKEN"))
 
 # HUNTING, SAV. ETC.
 # Define possible outcomes for each activity
@@ -599,5 +595,5 @@ async def fight(ctx, dice: str = "1d20"):
                 current_encounter_result = None  # Reset encounter result
                 failed_attempts = 0
 
-# Replace with your bot's token
-bot.run(os.getenv("DISCORD_BOT_TOKEN"))
+# Run the bot with proper initialization
+asyncio.run(main())
