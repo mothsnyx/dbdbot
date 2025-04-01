@@ -229,11 +229,11 @@ async def update_stats(ctx, name: str, *, stats: str):
                 key, value = line.split(": ")
                 stats_dict[key.strip()] = int(value.strip())
 
-        # Parse new stats and update the dictionary
+        # Parse new stats and overwrite the dictionary
         for stat in stats.split(","):
             if stat:
                 key, value = stat.split()
-                stats_dict[key.strip()] += int(value.strip())
+                stats_dict[key.strip()] = int(value.strip())
 
         # Convert the updated stats dictionary back to the string format
         updated_stats = "\n".join([f"{key}: {value}" for key, value in stats_dict.items()])
