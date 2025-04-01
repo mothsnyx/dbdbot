@@ -487,6 +487,8 @@ async def help_command(ctx):
 `!additem [name] [item]` - Add item to inventory
 `!removeitem [name] [item]` - Remove item from inventory
     """, inline=False)
+    
+    embed.add_field(name="‎", value="‎", inline=False)
 
     embed.add_field(name="🎲 ┃ Game Commands", value="""
 `!roll [XdY]` - Roll X dice with Y sides (default: 1d20)
@@ -494,6 +496,8 @@ async def help_command(ctx):
 `!encounter` - Start a beastiary encounter
 `!fight` - Roll to fight in an encounter
     """, inline=False)
+    
+    embed.add_field(name="‎", value="‎", inline=False)
 
     embed.add_field(name="🌲 ┃ Activity Commands", value="""
 `!hunting` - Go hunting
@@ -502,6 +506,8 @@ async def help_command(ctx):
 `!foraging` - Go foraging
 `!foglocation` - Travel to a random location
     """, inline=False)
+    
+    embed.add_field(name="‎", value="‎", inline=False)
 
     embed.add_field(name="📚 ┃ Documentation", value="For more detailed information about commands and troubleshooting, check the [Doc!](https://docs.google.com/document/d/10_BAk4cHfcxKPen8EPnTxq1MyJnlsZN7Z4eHWMgh7NE/edit?usp=sharing)", inline=False)
 
