@@ -141,12 +141,17 @@ async def create_profile(ctx, name: str, role: str):
     default_inventory = json.dumps({})
 
     async with aiosqlite.connect("profiles.db") as db:
-        await db.execute("""
-            INSERT OR REPLACE INTO profiles (user_id, name, role, stats, inventory)
-            VALUES (?, ?, ?, ?, ?)
-        """, (ctx.author.id, name, role.capitalize(), default_stats, default_inventory))
-        await db.commit()
-        await ctx.send(f"✅ ┃ Profile created for **{name}** as a **{role.capitalize()}**.")
+        try:
+            await db.execute("""
+                INSERT OR REPLACE INTO profiles (user_id, name, role, stats, inventory)
+                VALUES (?, ?, ?, ?, ?)
+            """, (ctx.author.id, name, role.capitalize(), default_stats, default_inventory))
+            await db.commit()
+        except Exception as e:
+            await ctx.send(f"Database error: {str(e)}")
+            return
+
+    await ctx.send(f"Profile created for **{name}** as a **{role.capitalize()}**.")
 
 @bot.command(name="list")
 async def list_profiles(ctx):
