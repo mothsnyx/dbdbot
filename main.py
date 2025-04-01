@@ -32,12 +32,10 @@ class ProfileView(discord.ui.View):
     def update_embed(self):
         if self.current_display == 'main_info':
             self.embed = discord.Embed(title=f"{self.name} ({self.role})", color=0x000000)
-            self.embed.set_image(url="https://media.discordapp.net/attachments/1082714872955031604/1356574341323821096/serverbannerstats.png?ex=67ed0fce&is=67ebbe4e&hm=beb91417025b9b6db92d5113aedff29f829f2f48fd8d5e75427c36b56d809921&=&format=webp&quality=lossless")
             self.embed.add_field(name="Stats", value=self.stats, inline=False)
         elif self.current_display == 'inventory':
             formatted_inventory = "\n".join([f"{item} x{count}" if count > 1 else item for item, count in self.inventory.items()]) if self.inventory else "Empty"
             self.embed = discord.Embed(title=f"{self.name}'s Inventory", color=0x000000)
-            self.embed.set_image(url="https://media.discordapp.net/attachments/1082714872955031604/1356574023110230096/serverbannerinventory.png?ex=67ed0f83&is=67ebbe03&hm=c4ab3b1199f8053e646a1a7d7a2f942f47c89e3acf2d0158e50f99ae95c1608a&=&format=webp&quality=lossless")
             self.embed.add_field(name="Inventory", value=formatted_inventory, inline=False)
         self.embed.set_footer(text="Use the buttons below to switch views")
 
