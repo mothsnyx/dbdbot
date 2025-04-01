@@ -478,7 +478,7 @@ async def help_command(ctx):
     """Shows all available commands."""
     embed = discord.Embed(title="Available Commands", color=0x000000)
     
-    embed.add_field(name="📝 Profile Commands", value="""
+    embed.add_field(name="📝 ┃ Profile Commands", value="""
 `!createprofile [name] [role]` - Create a new profile
 `!list` - List all your profiles
 `!profile [name]` - View a profile
@@ -488,14 +488,14 @@ async def help_command(ctx):
 `!removeitem [name] [item]` - Remove item from inventory
     """, inline=False)
 
-    embed.add_field(name="🎲 Game Commands", value="""
+    embed.add_field(name="🎲 ┃ Game Commands", value="""
 `!roll [XdY]` - Roll X dice with Y sides (default: 1d20)
 `!coinflip` - Flip a coin
 `!encounter` - Start a beastiary encounter
 `!fight` - Roll to fight in an encounter
     """, inline=False)
 
-    embed.add_field(name="🌲 Activity Commands", value="""
+    embed.add_field(name="🌲 ┃ Activity Commands", value="""
 `!hunting` - Go hunting
 `!scavenging` - Go scavenging
 `!fishing` - Go fishing
