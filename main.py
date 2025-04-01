@@ -112,21 +112,6 @@ async def coinflip(ctx):
     await gif_message.edit(embed=None, content=result)
 
 # PROFILES
-# Database setup (runs when bot starts)
-async def initialize_database():
-    async with aiosqlite.connect("profiles.db") as db:
-        # Create profiles table if it doesn't exist
-        await db.execute("""
-        CREATE TABLE IF NOT EXISTS profiles (
-            user_id INTEGER,
-            name TEXT,
-            role TEXT,
-            stats TEXT,
-            inventory TEXT,
-            PRIMARY KEY (user_id, name, role)  -- This ensures unique combinations of user_id, name, and role
-        )
-        """)
-        await db.commit()
 
 # CREATE PROFILES
 @bot.command(name="createprofile")
@@ -194,7 +179,7 @@ async def delete_profile(ctx, name: str, role: str):
             await db.commit()
 
             if cursor.rowcount > 0:
-                await ctx.send(f"🗑️ Your **{role}** profile **{name}** has been deleted, {ctx.author.mention}.")
+                await ctx.send(f"Profile for **{name}** has been deleted.")
             else:
                 await ctx.send("❌ ┃ No matching profile was found to delete.")
 
