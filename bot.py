@@ -133,7 +133,7 @@ async def create_profile(ctx, name: str, role: str):
     """Allows a user to create a profile with a name and role."""
 
     if role.lower() not in ["survivor", "killer"]:
-        await ctx.send("❌ Role must be 'survivor' or 'killer'.")
+        await ctx.send("❌ ┃ Role must be 'Survivor' or 'Killer'.")
         return
 
     default_stats = "Hunting: 0\nScavenging: 0\nFishing: 0\nForaging: 0"
@@ -150,7 +150,7 @@ async def create_profile(ctx, name: str, role: str):
             await ctx.send(f"Database error: {str(e)}")
             return
 
-    await ctx.send(f"Profile created for **{name}** as a **{role.capitalize()}**.")
+    await ctx.send(f"✅ ┃ Profile created for **{name}** as a **{role.capitalize()}**.")
 
 @bot.command(name="listprofiles")
 async def list_profiles(ctx):
@@ -161,7 +161,7 @@ async def list_profiles(ctx):
             profiles = await cursor.fetchall()
 
     if not profiles:
-        await ctx.send("❌ You don't have any profiles yet.")
+        await ctx.send("❌ ┃ You don't have any profiles yet.")
         return
 
     embed = discord.Embed(title=f"{ctx.author.name}'s Profiles", color=0x000000)
@@ -177,7 +177,7 @@ async def delete_profile(ctx, name: str, role: str):
     """Deletes the user's profile with the given name and role from the database."""
 
     if role.lower() not in ["survivor", "killer"]:
-        await ctx.send("❌ Role must be 'survivor' or 'killer'.")
+        await ctx.send("❌ ┃ Role must be 'Survivor' or 'Killer'.")
         return
 
     async with aiosqlite.connect("profiles.db") as db:
@@ -185,7 +185,7 @@ async def delete_profile(ctx, name: str, role: str):
             profiles = await cursor.fetchall()
 
             if (name, role) not in [(profile[0], profile[1]) for profile in profiles]:
-                await ctx.send(f"❌ You don't have a **{role}** profile with the name **{name}**!")
+                await ctx.send(f"❌ ┃ You don't have a **{role}** with the name **{name}**.")
                 return
 
             cursor = await db.execute("DELETE FROM profiles WHERE user_id = ? AND name = ? AND role = ?",
@@ -193,11 +193,11 @@ async def delete_profile(ctx, name: str, role: str):
             await db.commit()
 
             if cursor.rowcount > 0:
-                await ctx.send(f"🗑️ Your **{role}** profile **{name}** has been deleted, {ctx.author.mention}.")
+                await ctx.send(f"🗑️ ┃  Removed **{name}**.")
             else:
-                await ctx.send("❌ No matching profile was found to delete.")
+                await ctx.send("❌ ┃ No matching profile was found to delete.")
 
-@bot.command(name="openprofile")
+@bot.command(name="profile")
 async def open_profile(ctx, name: str):
     """Opens the user's profile with the given name from the database."""
 
@@ -207,7 +207,7 @@ async def open_profile(ctx, name: str):
             profile = await cursor.fetchone()
 
     if not profile:
-        await ctx.send(f"❌ You don't have a profile with the name **{name}**!")
+        await ctx.send(f"❌ ┃ You don't have a profile with the name **{name}**.")
         return
 
     role, stats, inventory = profile
@@ -215,7 +215,7 @@ async def open_profile(ctx, name: str):
         inventory = json.loads(inventory) if inventory else {}
     except json.JSONDecodeError as e:
         logger.error(f"JSON decode error: {e}")
-        await ctx.send(f"❌ Error reading inventory data for profile **{name}**.")
+        await ctx.send(f"❌ ┃ Error reading inventory data for profile **{name}**.")
         inventory = {}
 
     view = ProfileView(name, role, stats, inventory)
@@ -231,7 +231,7 @@ async def update_stats(ctx, name: str, *, stats: str):
             profile = await cursor.fetchone()
 
         if not profile:
-            await ctx.send(f"❌ You don't have a profile with the name **{name}**!")
+            await ctx.send(f"❌ ┃ You don't have a profile with the name **{name}**.")
             return
 
         current_stats = profile[0]
@@ -257,9 +257,9 @@ async def update_stats(ctx, name: str, *, stats: str):
         await db.commit()
 
     if cursor.rowcount > 0:
-        await ctx.send(f"✅ Stats for **{name}** have been updated.")
+        await ctx.send(f"✅ ┃ Stats for **{name}** have been updated.")
     else:
-        await ctx.send(f"❌ No matching profile found to update stats.")
+        await ctx.send(f"❌ ┃ No matching profile found to update stats.")
 
 @bot.command(name="additem")
 async def add_item(ctx, name: str, *, item: str):
@@ -271,14 +271,14 @@ async def add_item(ctx, name: str, *, item: str):
             profile = await cursor.fetchone()
 
         if not profile:
-            await ctx.send(f"❌ You don't have a profile with the name **{name}**!")
+            await ctx.send(f"❌ ┃ You don't have a profile with the name **{name}**.")
             return
 
         try:
             inventory = json.loads(profile[0]) if profile[0] else {}
         except json.JSONDecodeError as e:
             logger.error(f"JSON decode error: {e}")
-            await ctx.send(f"❌ Error reading inventory data for profile **{name}**.")
+            await ctx.send(f"❌ ┃ Error reading inventory data for profile **{name}**.")
             inventory = {}
 
         if item in inventory:
@@ -293,9 +293,9 @@ async def add_item(ctx, name: str, *, item: str):
         await db.commit()
 
     if cursor.rowcount > 0:
-        await ctx.send(f"✅ Added **{item}** to the inventory of **{name}**.")
+        await ctx.send(f"Added **{item}** to **{name}**'s inventory.")
     else:
-        await ctx.send(f"❌ No matching profile found to add item.")
+        await ctx.send(f"❌ ┃ No matching profile found to add item.")
 
 @bot.command(name="removeitem")
 async def remove_item(ctx, name: str, *, item: str):
@@ -307,18 +307,18 @@ async def remove_item(ctx, name: str, *, item: str):
             profile = await cursor.fetchone()
 
         if not profile:
-            await ctx.send(f"❌ You don't have a profile with the name **{name}**!")
+            await ctx.send(f"❌ ┃ You don't have a profile with the name **{name}**!")
             return
 
         try:
             inventory = json.loads(profile[0]) if profile[0] else {}
         except json.JSONDecodeError as e:
             logger.error(f"JSON decode error: {e}")
-            await ctx.send(f"❌ Error reading inventory data for profile **{name}**.")
+            await ctx.send(f"❌ ┃ Error reading inventory data for profile **{name}**.")
             inventory = {}
 
         if item not in inventory:
-            await ctx.send(f"❌ Item **{item}** not found in the inventory of **{name}**.")
+            await ctx.send(f"❌ ┃ Item **{item}** not found in the inventory of **{name}**.")
             return
 
         if inventory[item] > 1:
@@ -333,9 +333,9 @@ async def remove_item(ctx, name: str, *, item: str):
         await db.commit()
 
     if cursor.rowcount > 0:
-        await ctx.send(f"✅ Removed **{item}** from the inventory of **{name}**.")
+        await ctx.send(f"Removed **{item}** from **{name}**'s inventory.")
     else:
-        await ctx.send(f"❌ No matching profile found to remove item.")
+        await ctx.send(f"❌ ┃ No matching profile found to remove item.")
 
 def initialize_db():
     conn = sqlite3.connect('database.db')

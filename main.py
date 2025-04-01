@@ -198,7 +198,7 @@ async def delete_profile(ctx, name: str, role: str):
             else:
                 await ctx.send("❌ No matching profile was found to delete.")
 
-@bot.command(name="openprofile")
+@bot.command(name="profile")
 async def open_profile(ctx, name: str):
     """Opens the user's profile with the given name from the database."""
 
