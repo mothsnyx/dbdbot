@@ -1,20 +1,21 @@
+
 import sqlite3
+import aiosqlite
+import asyncio
 
-def initialize_db():
-    conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
-
-    # Create the profiles table if it doesn't exist
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS profiles (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id TEXT NOT NULL,
-        profile_data TEXT NOT NULL
-    )
-    ''')
-
-    conn.commit()
-    conn.close()
+async def initialize_db():
+    async with aiosqlite.connect('profiles.db') as db:
+        await db.execute('''
+        CREATE TABLE IF NOT EXISTS profiles (
+            user_id INTEGER,
+            name TEXT,
+            role TEXT,
+            stats TEXT,
+            inventory TEXT,
+            PRIMARY KEY (user_id, name, role)
+        )
+        ''')
+        await db.commit()
 
 if __name__ == "__main__":
-    initialize_db()
+    asyncio.run(initialize_db())
