@@ -136,7 +136,7 @@ async def create_profile(ctx, name: str, role: str):
             await ctx.send(f"Database error: {str(e)}")
             return
 
-    await ctx.send(f"Profile created for **{name}** as a **{role.capitalize()}**.")
+    await ctx.send(f"Created a profile for **{name}** as a **{role.capitalize()}**.")
 
 @bot.command(name="list")
 async def list_profiles(ctx):
@@ -490,7 +490,7 @@ async def help_command(ctx):
     
     embed.add_field(name="‎", value="‎", inline=False)
 
-    embed.add_field(name="🎲 ┃ Game Commands", value="""
+    embed.add_field(name="🔪 ┃ Game Commands", value="""
 `!roll [XdY]` - Roll X dice with Y sides (default: 1d20)
 `!coinflip` - Flip a coin
 `!encounter` - Start a beastiary encounter
@@ -499,7 +499,7 @@ async def help_command(ctx):
     
     embed.add_field(name="‎", value="‎", inline=False)
 
-    embed.add_field(name="🌲 ┃ Activity Commands", value="""
+    embed.add_field(name="🩸 ┃ Activity Commands", value="""
 `!hunting` - Go hunting
 `!scavenging` - Go scavenging
 `!fishing` - Go fishing
@@ -551,7 +551,7 @@ class SecondEncounterView(discord.ui.View):
 
     @discord.ui.button(label="Flee", style=discord.ButtonStyle.secondary)
     async def flee(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.send_message("You managed to flee, but suffered injuries in the process!")
+        await interaction.response.send_message("You managed to flee, but suffered injuries in the process.")
         global current_encounter_result
         global failed_attempts
         current_encounter_result = None
