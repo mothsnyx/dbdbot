@@ -337,6 +337,10 @@ async def remove_item(ctx, name: str, *, item: str):
     else:
         await ctx.send(f"❌ No matching profile found to remove item.")
 
+def initialize_db():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
 async def show_profiles():
     async with aiosqlite.connect("profiles.db") as db:
         async with db.execute("SELECT * FROM profiles") as cursor:
