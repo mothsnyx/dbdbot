@@ -153,7 +153,7 @@ async def create_profile(ctx, name: str, role: str):
 
     await ctx.send(f"Profile created for **{name}** as a **{role.capitalize()}**.")
 
-@bot.command(name="listprofiles")
+@bot.command(name="list")
 async def list_profiles(ctx):
     """Lists all profiles of the user."""
 
