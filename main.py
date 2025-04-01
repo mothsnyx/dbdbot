@@ -560,7 +560,8 @@ async def fight(ctx, dice: str = "1d20"):
         await ctx.send('There is no active encounter. \nUse the `!encounter` command to start an encounter.')
         return
 
-    tryrolls, limit = map(int, dice.split('d'))
+    try:
+        rolls, limit = map(int, dice.split('d'))
     except Exception:
         await ctx.send('Format has to be in NdN!')
         return
