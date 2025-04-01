@@ -39,7 +39,7 @@ class ProfileView(discord.ui.View):
             self.embed = discord.Embed(title=f"{self.name}'s Inventory", color=0x000000)
             self.embed.add_field(name="02﹒ Items", value=formatted_inventory, inline=False)
             self.embed.add_field(name="", value="", inline=False)  # Smaller empty field
-        self.embed.set_footer(text="use !help for all commands")
+        self.embed.set_footer(text="use !cmds for all commands")
 
     @discord.ui.button(label="Main Info", style=discord.ButtonStyle.primary, custom_id="main_info")
     async def show_main_info(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -473,7 +473,7 @@ async def foglocation(ctx):
     location = random.choice(LOCATIONS)
     await ctx.send(f"🌫️ ┃ The fog sends you to **{location}**.")
 
-@bot.command(name="help")
+@bot.command(name="cmds")
 async def help_command(ctx):
     """Shows all available commands."""
     embed = discord.Embed(title="Available Commands", color=0x000000)
@@ -503,7 +503,7 @@ async def help_command(ctx):
 `!foglocation` - Travel to a random location
     """, inline=False)
 
-    embed.add_field(name="📚 Documentation", value="For detailed information about commands and gameplay, check the [Documentation](https://docs.google.com/document/d/10_BAk4cHfcxKPen8EPnTxq1MyJnlsZN7Z4eHWMgh7NE/edit?usp=sharing)", inline=False)
+    embed.add_field(name="📚 ┃ Documentation", value="For more detailed information about commands and troubleshooting, check the [Doc!](https://docs.google.com/document/d/10_BAk4cHfcxKPen8EPnTxq1MyJnlsZN7Z4eHWMgh7NE/edit?usp=sharing)", inline=False)
 
     await ctx.send(embed=embed)
 
