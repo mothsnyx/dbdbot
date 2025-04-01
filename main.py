@@ -473,6 +473,40 @@ async def foglocation(ctx):
     location = random.choice(LOCATIONS)
     await ctx.send(f"🌫️ ┃ The fog sends you to **{location}**.")
 
+@bot.command(name="help")
+async def help_command(ctx):
+    """Shows all available commands."""
+    embed = discord.Embed(title="Available Commands", color=0x000000)
+    
+    embed.add_field(name="📝 Profile Commands", value="""
+`!createprofile [name] [role]` - Create a new profile
+`!list` - List all your profiles
+`!profile [name]` - View a profile
+`!deleteprofile [name] [role]` - Delete a profile
+`!updatestats [name] [stat] [value]` - Update profile stats
+`!additem [name] [item]` - Add item to inventory
+`!removeitem [name] [item]` - Remove item from inventory
+    """, inline=False)
+
+    embed.add_field(name="🎲 Game Commands", value="""
+`!roll [XdY]` - Roll X dice with Y sides (default: 1d20)
+`!coinflip` - Flip a coin
+`!encounter` - Start a beastiary encounter
+`!fight` - Roll to fight in an encounter
+    """, inline=False)
+
+    embed.add_field(name="🌲 Activity Commands", value="""
+`!hunting` - Go hunting
+`!scavenging` - Go scavenging
+`!fishing` - Go fishing
+`!foraging` - Go foraging
+`!foglocation` - Travel to a random location
+    """, inline=False)
+
+    embed.add_field(name="📚 Documentation", value="For detailed information about commands and gameplay, check the [Documentation](https://docs.google.com/document/d/10_BAk4cHfcxKPen8EPnTxq1MyJnlsZN7Z4eHWMgh7NE/edit?usp=sharing)", inline=False)
+
+    await ctx.send(embed=embed)
+
 # BEASTIARY ENCOUNTERS
 ENCOUNTERS = [
     "nothing", "nothing", "nothing", "nothing", "nothing", "nothing", "nothing", "nothing", "nothing", "nothing",
