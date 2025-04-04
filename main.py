@@ -616,6 +616,23 @@ async def fight(ctx, dice: str = "1d20"):
                 current_encounter_result = None  # Reset encounter result
                 failed_attempts = 0
 
+# CHOOSE
+@bot.command(name="choose")
+async def choose(ctx, *, options: str):
+    """Chooses a random option from a comma-separated list."""
+    choices = [choice.strip() for choice in options.split(",")]
+    if not choices:
+        await ctx.send("❌ ┃ Please provide options separated by commas.")
+        return
+    chosen = random.choice(choices)
+    await ctx.send(f"{chosen}")
+
+# TEST
+@bot.command(name="test")
+async def test(ctx):
+    """Tests if the bot is online."""
+    await ctx.send("✅ ┃ I'm online!")
+
 # Run the bot with proper initialization
 async def main():
     await initialize_database()  # Initialize DB first
