@@ -323,10 +323,6 @@ async def remove_item(ctx, name: str, *, item: str):
     else:
         await ctx.send(f"❌ ┃ No matching profile found to remove item.")
 
-async def main():
-    await initialize_database()  # Initialize DB first
-    await bot.start(os.getenv("DISCORD_BOT_TOKEN"))
-
 # HUNTING, SAV. ETC.
 # Define possible outcomes for each activity
 HUNTING_OUTCOMES = [
@@ -621,6 +617,20 @@ async def fight(ctx, dice: str = "1d20"):
                 failed_attempts = 0
 
 # Run the bot with proper initialization
+async def main():
+    await initialize_database()  # Initialize DB first
+    token = os.getenv("DISCORD_BOT_TOKEN")
+    if not token:
+        logger.error("Error: DISCORD_BOT_TOKEN environment variable not set.")
+        return
+    if "\n" in token or "\r" in token:
+        logger.error("Error: DISCORD_BOT_TOKEN contains invalid characters.")
+        return
+    try:
+        await bot.start(token)
+    finally:
+        await bot.close()
+
 if __name__ == "__main__":
     try:
         asyncio.run(main())
