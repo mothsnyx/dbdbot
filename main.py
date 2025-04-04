@@ -621,4 +621,8 @@ async def fight(ctx, dice: str = "1d20"):
                 failed_attempts = 0
 
 # Run the bot with proper initialization
-asyncio.run(main())
+if __name__ == "__main__":
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        logger.info("Bot shut down manually.")
