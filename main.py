@@ -491,6 +491,7 @@ async def help_command(ctx):
 `!coinflip` - Flip a coin
 `!encounter` - Start a beastiary encounter
 `!fight` - Roll to fight in an encounter
+`!choose` - Choose between multiple options
     """, inline=False)
     
     embed.add_field(name="‎", value="‎", inline=False)
@@ -597,7 +598,7 @@ async def fight(ctx, dice: str = "1d20"):
         survival_threshold = random.randint(10, 20)  # Random threshold to beat
 
         if roll_value == beast_roll_value:
-            await ctx.send(f"The Enemy rolled **{beast_roll_value}** as well.\n\n**The {current_encounter_result} changed it's mind and fled!**")
+            await ctx.send(f"The Enemy rolled **{beast_roll_value}** as well.\n\n**The {current_encounter_result} changed its mind and fled!**")
             current_encounter_result = None  # Reset encounter result
             failed_attempts = 0
         elif roll_value > survival_threshold:
