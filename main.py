@@ -489,7 +489,7 @@ async def help_command(ctx):
     embed.add_field(name="🔪 ┃ Game Commands", value="""
 `!roll [XdY]` - Roll X dice with Y sides (default: 1d20)
 `!coinflip` - Flip a coin
-`!encounter` - Start a beastiary encounter
+`!encounter` - Start a beast encounter
 `!fight` - Roll to fight in an encounter
 `!choose` - Choose between multiple options
     """, inline=False)
@@ -510,7 +510,7 @@ async def help_command(ctx):
 
     await ctx.send(embed=embed)
 
-# BEASTIARY ENCOUNTERS
+# BEAST ENCOUNTERS
 ENCOUNTERS = [
     "nothing", "nothing", "nothing", "nothing", "nothing", "nothing", "nothing", "nothing", "nothing", "nothing",
     "Shuck", "Diomedes", "Wight", "Wyrm", "Syclla", "Sovereign Of Rats", "Lamia"
@@ -564,12 +564,12 @@ class SecondEncounterView(discord.ui.View):
 
 @bot.command(name="encounter")
 async def encounter(ctx):
-    """Simulates a Beastiary Encounter and returns the result."""
+    """Simulates a Beast Encounter and returns the result."""
     encounter_result = random.choice(ENCOUNTERS)
     if encounter_result == "nothing":
         await ctx.send("You encountered nothing.")
     else:
-        embed = discord.Embed(title="Beastiary Encounter", description=f"You encountered a **{encounter_result}**!", color=0x7d2122)
+        embed = discord.Embed(title="Beast Encounter", description=f"You encountered a **{encounter_result}**!", color=0x7d2122)
         view = EncounterView(encounter_result)
         await ctx.send(embed=embed, view=view)
 
@@ -609,7 +609,7 @@ async def fight(ctx, dice: str = "1d20"):
             failed_attempts += 1
             if failed_attempts == 1:
                 await ctx.send(f"The Enemy rolled **{survival_threshold}**")
-                embed = discord.Embed(title="Beastiary Encounter", description=f"You've been injured! Do you want to **fight** on or **flee**?\n *Continuing to fight may lead to your muse’s death*.", color=0x7d2122)
+                embed = discord.Embed(title="Beast Encounter", description=f"You've been injured! Do you want to **fight** on or **flee**?\n *Continuing to fight may lead to your muse’s death*.", color=0x7d2122)
                 view = SecondEncounterView(current_encounter_result)
                 await ctx.send(embed=embed, view=view)
             elif failed_attempts >= 2:
